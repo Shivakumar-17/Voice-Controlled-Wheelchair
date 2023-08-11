@@ -1,0 +1,249 @@
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+int A=9;
+
+int B=10;
+
+
+int C=11;
+
+int D=12;
+
+int Speed=255;
+
+String Command;
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+
+void setup() {
+
+  // setting up the pins as output
+
+pinMode(A,OUTPUT);
+
+pinMode(B,OUTPUT);
+
+pinMode(C,OUTPUT);
+
+pinMode(D,OUTPUT);
+
+Serial.begin(9600);
+
+ lcd.begin();
+
+  lcd.backlight();
+  
+  lcd.setCursor(0, 0);
+
+  lcd.print("_Wheelchair_");
+
+}
+
+
+
+void loop() {
+
+  // main code
+
+
+
+while (Serial.available()==0) {
+
+  
+
+}
+
+
+Command=Serial.readString();
+
+Serial.println(Command);
+
+//forward
+if (Command=="*forward#") {
+  Serial.println("final forward command ");
+
+   lcd.setCursor(0, 1);
+
+lcd.print("__Forward___");
+
+ analogWrite(A,Speed);
+
+analogWrite(B,LOW);
+
+analogWrite(C,Speed);
+
+analogWrite(D,LOW);
+delay(2000);
+analogWrite(A,LOW);
+
+analogWrite(B,LOW);
+
+analogWrite(C,LOW);
+
+analogWrite(D,LOW);
+
+}
+//stop
+
+if (Command=="*stop#") {
+
+ analogWrite(A,LOW);
+
+analogWrite(B,LOW);
+
+analogWrite(C,LOW);
+
+analogWrite(D,LOW);
+
+}
+//backward
+
+if (Command=="*backward#") {
+
+   lcd.setCursor(0, 1);
+
+  lcd.print("__Backward___");
+
+ analogWrite(A,LOW);
+
+analogWrite(B,Speed);
+
+analogWrite(C,LOW);
+
+analogWrite(D,Speed);
+delay(2000);
+analogWrite(A,LOW);
+
+analogWrite(B,LOW);
+
+analogWrite(C,LOW);
+
+analogWrite(D,LOW);
+
+}
+//left
+
+if (Command=="*left#") {
+
+ lcd.setCursor(0, 1);
+
+  lcd.print("___Left___");
+
+ analogWrite(A,LOW);
+
+analogWrite(B,LOW);
+
+analogWrite(C,Speed);
+
+analogWrite(D,LOW);
+delay(1000);
+analogWrite(A,LOW);
+
+analogWrite(B,LOW);
+
+analogWrite(C,LOW);
+
+analogWrite(D,LOW);
+
+}
+//right
+
+if (Command=="*right#") {
+
+   lcd.setCursor(0, 1);
+
+lcd.print("___Right___");  
+
+ analogWrite(A,Speed);
+
+analogWrite(B,LOW);
+
+analogWrite(C,LOW);
+
+analogWrite(D,LOW);
+delay(1000);
+analogWrite(A,LOW);
+
+analogWrite(B,LOW);
+
+analogWrite(C,LOW);
+
+analogWrite(D,LOW);
+
+}
+
+if (Command=="1")
+{
+   Serial.println(Command);
+  
+  analogWrite(A,Speed);
+
+analogWrite(B,LOW);
+
+analogWrite(C,Speed);
+
+analogWrite(D,LOW);
+
+}
+
+if (Command=="2")
+{
+ 
+ analogWrite(A,LOW);
+
+analogWrite(B,LOW);
+
+analogWrite(C,LOW);
+
+analogWrite(D,LOW);
+
+}
+
+if (Command=="3")
+{
+ 
+ analogWrite(A,Speed);
+
+analogWrite(B,LOW);
+
+analogWrite(C,LOW);
+
+analogWrite(D,LOW);
+delay(1000);
+analogWrite(A,LOW);
+
+analogWrite(B,LOW);
+
+analogWrite(C,LOW);
+
+analogWrite(D,LOW);
+
+}
+
+if (Command=="4")
+{
+ 
+ analogWrite(A,LOW);
+
+analogWrite(B,LOW);
+
+analogWrite(C,Speed);
+
+analogWrite(D,LOW);
+
+delay(1000);
+analogWrite(A,LOW);
+
+analogWrite(B,LOW);
+
+analogWrite(C,LOW);
+
+analogWrite(D,LOW);
+}
+
+
+
+
+}
